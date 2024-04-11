@@ -366,6 +366,18 @@ table ingress_loopback_table {
                 size = 16384;
 }
 
+table ingress_loopback_dmac_table {
+	key = {
+		hdrs.mac[meta.common.depth].da : exact @name("dmac") @id(1) @format(MAC_ADDRESS);
+        }
+	actions = {
+		fwd_to_port;
+		@defaultonly l2_fwd_miss_action;
+                }
+                const default_action = l2_fwd_miss_action(DEFAULT_MGMT_VPORT);
+                size = 16384;
+}
+
 table vport_egress_vsi_table {
                 key = {
                         meta.common.vsi : exact @name("vsi") @id(1);
@@ -386,6 +398,18 @@ table vport_egress_dmac_vsi_table {
 		key = {
 			hdrs.mac[meta.common.depth].da : exact @name("dmac") @id(1) @format(MAC_ADDRESS);
 			meta.common.vsi : exact @name("vsi") @id(2);
+		}
+		actions = {
+			fwd_to_port;
+			@defaultonly NoAction;
+		}
+		size = 1024;
+		const default_action = NoAction;
+}
+
+table vport_egress_dmac_table {
+		key = {
+			hdrs.mac[meta.common.depth].da : exact @name("dmac") @id(1) @format(MAC_ADDRESS);
 		}
 		actions = {
 			fwd_to_port;
@@ -417,6 +441,7 @@ apply {
     	if (TxPkt(istd) && pass_1st(istd) && user_meta.pmeta.evlan_8100 == 0 &&  user_meta.pmeta.stag == 0 && hdrs.mac[meta.common.depth].isValid() && hdrs.ipv4[meta.common.depth].isValid() && !hdrs.arp.isValid()) {
 	    	vport_egress_dmac_vsi_table.apply();
 		vport_egress_vsi_table.apply();
+		vport_egress_dmac_table.apply();
 	}
 	else if (TxPkt(istd) && pass_1st(istd) && hdrs.arp.isValid() && user_meta.pmeta.evlan_8100 == 0 && user_meta.pmeta.stag == 1 && istd.loopedback == false && IS_BC_OR_MC(istd)) {
 		portmux_egress_req_table.apply();
@@ -434,6 +459,7 @@ apply {
 
  if (RxPkt(istd) && pass_1st(istd) && istd.loopedback == true && user_meta.pmeta.stag == 0 ) {
      ingress_loopback_table.apply();
+     ingress_loopback_dmac_table.apply();
   } 
  else if (RxPkt(istd) && pass_1st(istd) && istd.loopedback == true && user_meta.pmeta.stag == 1 ) {
       portmux_ingress_loopback_table.apply();

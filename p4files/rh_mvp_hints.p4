@@ -75,7 +75,15 @@
 
 @intel_config("sem_objcache", SEM_OBJ_0, 0, 64, 0, 2)
 @intel_config("sem_objcache", SEM_OBJ_1, 0x1050000, 64, 2, 2)
-@intel_config("sem_objcache", SEM_OBJ_2, 0x20A0000, 64, 4, 2)
+@intel_config("sem_objcache", SEM_OBJ_2, 0x20A0000, 32, 4, 1)
+
+// object id, BASE, ENTRY_SIZE, START_BANK, NUM_BANKS
+//@intel_config("sem_objcache", SEM_OBJ_0, 0, 32, 0, 1)
+//@intel_config("sem_objcache", SEM_OBJ_1, 0x5000, 32, 1, 1)
+//@intel_config("sem_objcache", SEM_OBJ_2, 0x2D000, 32, 2, 1)
+//@intel_config("sem_objcache", SEM_OBJ_3, 0x55000, 32, 3, 1)
+//@intel_config("sem_objcache", SEM_OBJ_4, 0x7D000, 32, 4, 1)
+
 
 //base 1 = base_0 + size of HASH (128B * (1024 + 256 * 5))
 //base 1 = base_0 + size of HASH (64B * (262144 + 1024 * 5))
@@ -149,18 +157,20 @@
 //            SEM PROFILE cONFIG
 //=============================================================================
 
-SEM_DEF_TABLE_CFG("comms_channel_table", SEM_OBJ_0, 1, FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("phy_ingress_arp_table", SEM_OBJ_2, 2, FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("vport_egress_dmac_vsi_table", SEM_OBJ_2, 4 , FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("vport_egress_vsi_table", SEM_OBJ_2, 4 , SECOND_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("ingress_loopback_table", SEM_OBJ_1, 5, FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("phy_ingress_vlan_dmac_table", SEM_OBJ_2, 6 , FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("vport_arp_egress_table", SEM_OBJ_2, 7 , FIRST_LUT, 12)
-SEM_DEF_TABLE_CFG("portmux_ingress_loopback_table", SEM_OBJ_1, 9, FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("portmux_egress_req_table", SEM_OBJ_1, 10, FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("portmux_egress_resp_dmac_vsi_table", SEM_OBJ_1, 11, FIRST_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("portmux_egress_resp_vsi_table", SEM_OBJ_1, 11, SECOND_LUT, NUM_ACTION8)
-SEM_DEF_TABLE_CFG("port_mux_fwd_table", SEM_OBJ_1, 12, FIRST_LUT, NUM_ACTION8)
+SEM_DEF_TABLE_CFG("comms_channel_table", SEM_OBJ_0, 1, FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("phy_ingress_arp_table", SEM_OBJ_2, 2, FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("vport_egress_dmac_vsi_table", SEM_OBJ_2, 4 , FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("vport_egress_vsi_table", SEM_OBJ_2, 4 , SECOND_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("vport_egress_dmac_table", SEM_OBJ_2, 4 , THIRD_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("ingress_loopback_table", SEM_OBJ_1, 5, FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("ingress_loopback_dmac_table", SEM_OBJ_1, 5, SECOND_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("phy_ingress_vlan_dmac_table", SEM_OBJ_1, 6 , FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("vport_arp_egress_table", SEM_OBJ_2, 7 , FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("portmux_ingress_loopback_table", SEM_OBJ_1, 9, FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("portmux_egress_req_table", SEM_OBJ_1, 10, FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("portmux_egress_resp_dmac_vsi_table", SEM_OBJ_1, 11, FIRST_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("portmux_egress_resp_vsi_table", SEM_OBJ_1, 11, SECOND_LUT, NUM_ACTION4)
+SEM_DEF_TABLE_CFG("port_mux_fwd_table", SEM_OBJ_1, 12, FIRST_LUT, NUM_ACTION4)
 
 @intel_config("owner", "MOD_PROFILE_CFG", 0, 100)
 @intel_config("owner", "MOD_FV_EXTRACT", 0, 30)

@@ -2116,7 +2116,7 @@ block SEM {
 
         0 : BASE(0), ENTRY_SIZE(64), START_BANK(0), NUM_BANKS(2);
         1 : BASE(17104896), ENTRY_SIZE(64), START_BANK(2), NUM_BANKS(2);
-        2 : BASE(34209792), ENTRY_SIZE(64), START_BANK(4), NUM_BANKS(2);
+        2 : BASE(34209792), ENTRY_SIZE(32), START_BANK(4), NUM_BANKS(1);
     }
 
     table PROFILE_CFG(%PROFILE) {
@@ -2127,7 +2127,7 @@ block SEM {
 				OBJECT_ID(0),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 24, 'h7FF),
 					WORD1 (228, 2, 'hFFFF)
@@ -2149,7 +2149,7 @@ block SEM {
 				OBJECT_ID(2),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (1, 0, 'hFFFF),
 					WORD1 (1, 2, 'hFFFF),
@@ -2164,13 +2164,35 @@ block SEM {
 				OBJECT_ID(2),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 24, 'h7FF),
 					WORD1 (228, 2, 'hFFFF),
 					WORD2 (228, 4, 'hFFFF)
 				}
 
+			}
+, 
+			// vport_egress_dmac_table
+			LUT {
+				OBJECT_ID(2),
+				VSI_LIST_EN(1),
+				INV_ACTION(0),
+				NUM_ACTIONS(4),
+				EXTRACT {
+					WORD0 (1, 0, 'hFFFF),
+					WORD1 (1, 2, 'hFFFF),
+					WORD2 (1, 4, 'hFFFF)
+				}
+
+			}
+, 
+			// empty_sem_2
+			LUT {
+				OBJECT_ID(2),
+				VSI_LIST_EN(0),
+				INV_ACTION(0),
+				NUM_ACTIONS(1)
 			}
 ;
         10 : SWID_SRC(DERIVE), COMPRESS_KEY(0), AUX_PREC(0), HASH_SIZE0(18), HASH_SIZE1(10), HASH_SIZE2(10), HASH_SIZE3(10), HASH_SIZE4(10), HASH_SIZE5(10), PINNED_LOOKUP(0), AGING_MODE(NONE), 
@@ -2179,7 +2201,7 @@ block SEM {
 				OBJECT_ID(1),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 24, 'h7FF),
 					WORD1 (19, 2, 'hFF0F)
@@ -2201,7 +2223,7 @@ block SEM {
 				OBJECT_ID(1),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (1, 0, 'hFFFF),
 					WORD1 (1, 2, 'hFFFF),
@@ -2216,7 +2238,7 @@ block SEM {
 				OBJECT_ID(1),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 24, 'h7FF),
 					WORD1 (228, 2, 'hFFFF),
@@ -2231,13 +2253,29 @@ block SEM {
 				OBJECT_ID(2),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(12),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 24, 'h7FF),
 					WORD1 (228, 2, 'hFFFF),
 					WORD2 (228, 4, 'hFFFF)
 				}
 
+			}
+, 
+			// empty_sem_2
+			LUT {
+				OBJECT_ID(2),
+				VSI_LIST_EN(0),
+				INV_ACTION(0),
+				NUM_ACTIONS(1)
+			}
+, 
+			// empty_sem_2
+			LUT {
+				OBJECT_ID(2),
+				VSI_LIST_EN(0),
+				INV_ACTION(0),
+				NUM_ACTIONS(1)
 			}
 , 
 			// empty_sem_2
@@ -2254,7 +2292,7 @@ block SEM {
 				OBJECT_ID(1),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 24, 'h7FF),
 					WORD1 (230, 2, 'hFFE)
@@ -2262,12 +2300,18 @@ block SEM {
 
 			}
 , 
-			// empty_sem_1
+			// ingress_loopback_dmac_table
 			LUT {
 				OBJECT_ID(1),
-				VSI_LIST_EN(0),
+				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(1)
+				NUM_ACTIONS(4),
+				EXTRACT {
+					WORD0 (1, 0, 'hFFFF),
+					WORD1 (1, 2, 'hFFFF),
+					WORD2 (1, 4, 'hFFFF)
+				}
+
 			}
 ;
         9 : SWID_SRC(DERIVE), COMPRESS_KEY(0), AUX_PREC(0), HASH_SIZE0(18), HASH_SIZE1(10), HASH_SIZE2(10), HASH_SIZE3(10), HASH_SIZE4(10), HASH_SIZE5(10), PINNED_LOOKUP(0), AGING_MODE(NONE), 
@@ -2276,7 +2320,7 @@ block SEM {
 				OBJECT_ID(1),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (228, 2, 'hFFFF),
 					WORD1 (228, 4, 'hFFFF)
@@ -2298,7 +2342,7 @@ block SEM {
 				OBJECT_ID(2),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 5, 'h18),
 					WORD1 (16, 2, 'hFF0F)
@@ -2313,14 +2357,30 @@ block SEM {
 				INV_ACTION(0),
 				NUM_ACTIONS(1)
 			}
+, 
+			// empty_sem_2
+			LUT {
+				OBJECT_ID(2),
+				VSI_LIST_EN(0),
+				INV_ACTION(0),
+				NUM_ACTIONS(1)
+			}
+, 
+			// empty_sem_2
+			LUT {
+				OBJECT_ID(2),
+				VSI_LIST_EN(0),
+				INV_ACTION(0),
+				NUM_ACTIONS(1)
+			}
 ;
         6 : SWID_SRC(DERIVE), COMPRESS_KEY(0), AUX_PREC(0), HASH_SIZE0(18), HASH_SIZE1(10), HASH_SIZE2(10), HASH_SIZE3(10), HASH_SIZE4(10), HASH_SIZE5(10), PINNED_LOOKUP(0), AGING_MODE(NONE), 
 			// phy_ingress_vlan_dmac_table
 			LUT {
-				OBJECT_ID(2),
+				OBJECT_ID(1),
 				VSI_LIST_EN(1),
 				INV_ACTION(0),
-				NUM_ACTIONS(8),
+				NUM_ACTIONS(4),
 				EXTRACT {
 					WORD0 (224, 5, 'h18),
 					WORD1 (16, 2, 'hFF0F),
@@ -2331,9 +2391,9 @@ block SEM {
 
 			}
 , 
-			// empty_sem_2
+			// empty_sem_1
 			LUT {
-				OBJECT_ID(2),
+				OBJECT_ID(1),
 				VSI_LIST_EN(0),
 				INV_ACTION(0),
 				NUM_ACTIONS(1)
